@@ -208,7 +208,7 @@ function RoomDetails() {
   className='flex items-center gap-2 px-6 py-2.5 mt-4 rounded text-white bg-black hover:bg-gray-700 transition-all cursor-pointer'
   onClick={() =>
     window.open(
-      `https://wa.me/919876543210?text=${encodeURIComponent(
+      `https://wa.me/917679320593?text=${encodeURIComponent(
         "Hi GoStay Team, I would like to inquire about a booking."
       )}`,
       "_blank"
