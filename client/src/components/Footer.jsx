@@ -9,7 +9,7 @@ function Footer() {
                 <div className='max-w-80'>
                  <div  className="flex items-center space-x-2 h-10 px-2 py-1 rounded-lg transition-all " >
                         <FaHotel className="text-3xl text-black" /> {/* Bigger, colored icon */}
-                        <span className="text-2xl font-bold text-black">EliteRooms</span> {/* Stylish text */}
+                        <span className="text-2xl font-bold text-black">GoStay</span> {/* Stylish text */}
                     </div>
                     <p className='text-sm'>
                         Discover the world's most extraordinary places to stay, from boutique hotels to luxury villas and private islands
@@ -64,7 +64,7 @@ function Footer() {
             </div>
             <hr className='border-gray-300 mt-8' />
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
-                <p>© {new Date().getFullYear()} EliteRooms. All rights reserved. Made by Sahil.</p>
+                <p>© {new Date().getFullYear()} GoStay. All rights reserved. Developed by Sahil Gupta.</p>
                 <ul className='flex items-center gap-4'>
                     <li><a href="#">Privacy</a></li>
                     <li><a href="#">Terms</a></li>

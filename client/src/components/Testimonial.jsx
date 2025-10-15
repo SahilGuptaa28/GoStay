@@ -7,7 +7,7 @@ function Testimonial() {
     return (
         <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 bg-slate-50
         pt-20 pb-30'>
-            <Title title="What Our Guests Say" subtitle= "Discover why discerning travelers consistently choose QuickStay for their exclusive and luxurious accommodation around the world." />
+            <Title title="What Our Guests Say" subtitle= "Discover why discerning travelers consistently choose GoStay for their exclusive and luxurious accommodation around the world." />
             <div className='flex flex-wrap items-center gap-6 mt-20 '>
                 {testimonials.map((Testimonial)=>(
                     <div key={Testimonial.id} className='bg-white p-6 rounded-xl shadow max-w-[21rem]' >

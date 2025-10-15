@@ -1,10 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../../components/Title'
 import { assets, dashboardDummyData } from '../../assets/assets'
+import { useAppContext } from '../../context/AppContext'
 
 function Dashboard() {
 
-    const [dashboardData, setDashboardData] = useState(dashboardDummyData)
+    const {currency,user,getToken,toast,axios} = useAppContext()
+
+    const [dashboardData, setDashboardData] = useState({
+        bookings:[],
+        totalBookings:0,
+        totalRevenue:0,
+    })
+
+     const fetchDashboardData = async()=>{
+        try {
+            const {data} = await axios.get('/api/bookings/hotel',
+                {headers: { Authorization: `Bearer ${await getToken()}` }}
+            )
+            if(data.success){
+                setDashboardData(data.dashboardData);
+            }else{
+                toast.error(data.message);
+            }
+        } catch (error) {
+               toast.error(error.message);
+        }
+     }
+
+     useEffect(()=>{
+        if(user){
+            fetchDashboardData()
+        }
+     },[user])
 
 
     return (
@@ -25,7 +53,7 @@ function Dashboard() {
                     <img src={assets.totalRevenueIcon} alt="" className='max-sm:hidden h-10' />
                     <div className='flex flex-col sm:ml-4 font-medium'>
                         <p className='text-blue-500 text-lg'>Total Revenue</p>
-                        <p className='text-neutral-400 text-base' > $ {dashboardData.totalRevenue}</p>
+                        <p className='text-neutral-400 text-base' > {currency} {dashboardData.totalRevenue}</p>
                     </div>
                 </div>
             </div>
@@ -53,7 +81,7 @@ function Dashboard() {
                                     {item.room.roomType}
                                 </td>
                                 <td className='py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden text-center'>
-                                    $ {item.totalPrice}
+                                   {currency} {item.totalPrice}
                                 </td>
 
                                 <td className='py-3 px-4 border-t border-gray-300 flex'>

@@ -1,11 +1,11 @@
 import User from "../models/user.js";
 import { Webhook } from "svix";
 
-const clerkWebhooks = async (req,res) =>{
+const clerkWebhooks = async (req, res) => {
     try {
-         // Create a Svix instance with clerk webhook secret.
+        // Create a Svix instance with clerk webhook secret.
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
-           // Getting headers
+        // Getting headers
         const headers = {
             "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
@@ -13,41 +13,48 @@ const clerkWebhooks = async (req,res) =>{
         };
 
         //verifying Headers
-        await whook.verify(JSON.stringify(req.body),headers)
+        await whook.verify(JSON.stringify(req.body), headers)
 
         // Getting Data from request body
-        const {data,type} = req.body
+        const { data, type } = req.body
 
-        const userData = {
-            _id : data.id,
-            email : data.email_addresses[0].email_address,
-            username : data.first_name + " " + data.last_name,
-            image : data.image_url,
-        }
+
 
         // Swtich Cases for different Events 
         switch (type) {
-            case "user.created":{
+            case "user.created": {
+                const userData = {
+                    _id: data.id,
+                    email: data.email_addresses[0].email_address,
+                    username: data.first_name + " " + data.last_name,
+                    image: data.image_url,
+                }
                 await User.create(userData);
                 break;
             }
-              case "user.updated":{
-                await User.findByIdAndUpdate(data.id,userData);
+            case "user.updated": {
+                const userData = {
+                    _id: data.id,
+                    email: data.email_addresses[0].email_address,
+                    username: data.first_name + " " + data.last_name,
+                    image: data.image_url,
+                }
+                await User.findByIdAndUpdate(data.id, userData);
                 break;
-            }  
-             case "user.deleted":{
+            }
+            case "user.deleted": {
                 await User.findByIdAndDelete(data.id);
                 break;
-            }   
+            }
             default:
                 break;
         }
-       res.json({success:true,message:"webhook Recieved"})
- 
+        res.json({ success: true, message: "webhook Recieved" })
+
     } catch (error) {
         console.log(error.message);
-        res.json({success:false,message:error.message});
-        
+        res.json({ success: false, message: error.message });
+
     }
 }
 
