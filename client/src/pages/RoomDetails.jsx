@@ -5,6 +5,7 @@ import StarRating from '../components/StarRating'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 import { FiWifi } from 'react-icons/fi';
+ import { FaWhatsapp } from "react-icons/fa";
 
 
 function RoomDetails() {
@@ -160,7 +161,7 @@ function RoomDetails() {
 
 
                 </div>
-                <button type='submit' className='bg-primary hover:bg-indigo-800 active:scale-95 transition-all text-white rounded-md max-md:w-full
+                <button type='submit' className='bg-black hover:bg-gray-700 active:scale-95 transition-all text-white rounded-md max-md:w-full
                  max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'>
                     {isAvailable ? "Book Now" : " Check Availability"}
                 </button>
@@ -199,8 +200,26 @@ function RoomDetails() {
                         </div>
                     </div>
                 </div>
-                <button className='px-6 py-2.5 mt-4 rounded text-white bg-primary hover:bg-indigo-800 transition-all
-               cursor-pointer'>Contact Now</button>
+                {/* <button className='px-6 py-2.5 mt-4 rounded text-white bg-primary hover:bg-indigo-800 transition-all
+               cursor-pointer'>Contact Now</button> */}
+             
+
+<button
+  className='flex items-center gap-2 px-6 py-2.5 mt-4 rounded text-white bg-black hover:bg-gray-700 transition-all cursor-pointer'
+  onClick={() =>
+    window.open(
+      `https://wa.me/919876543210?text=${encodeURIComponent(
+        "Hi GoStay Team, I would like to inquire about a booking."
+      )}`,
+      "_blank"
+    )
+  }
+>
+  <FaWhatsapp className="text-green-500 text-lg" />
+  Contact Now
+</button>
+
+
             </div>
 
 
