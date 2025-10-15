@@ -81,25 +81,26 @@
 //     )
 // }
 
-// export default Hero
+// // export default Hero
+
 import React, { useState } from 'react'
 import { assets, cities } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
-import hero from '../assets/hero.png' // ✅ import the hero image
+import hero from '../assets/hero.png'
 
 function Hero() {
     const { navigate, getToken, axios, setSearchedCities } = useAppContext()
     const [destination, setDestination] = useState("")
+    const [checkIn, setCheckIn] = useState("")
+    const [checkOut, setCheckOut] = useState("")
 
     const onSearch = async (e) => {
         e.preventDefault()
         navigate(`/rooms?destination=${destination}`)
-        // call API to save recent searched city
         await axios.post('/api/user/store-recent-search', {
             recentSearchedCity: destination
         }, { headers: { Authorization: `Bearer ${await getToken()}` } })
 
-        // add destination to searchedCities max 3 recent searched cities
         setSearchedCities((prev) => {
             const updated = [...prev, destination]
             if (updated.length > 4) updated.shift()
@@ -110,7 +111,7 @@ function Hero() {
     return (
         <div
             className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white h-screen bg-no-repeat bg-cover bg-center'
-            style={{ backgroundImage: `url(${hero})` }} // ✅ use imported image
+            style={{ backgroundImage: `url(${hero})` }}
         >
             <p className='bg-[#3B82F6]/50 px-3.5 py-1 rounded-full mt-20'>Your Comfort, Our Priority</p>
             <h1 className='font-playfair text-2xl md:text-5xl md:text-[56px] md:leading-[56px] font-bold md:font-extrabold max-w-xl mt-4'>
@@ -121,25 +122,25 @@ function Hero() {
             </p>
 
             <form onSubmit={onSearch} className='bg-white text-gray-500 rounded-lg px-6 py-4 mt-8 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto'>
-                {/* Destination */}
+                
+                {/* Destination as select */}
                 <div>
                     <div className='flex items-center gap-2'>
                         <img src={assets.calenderIcon} alt="" className='h-4' />
                         <label htmlFor="destinationInput">Destination</label>
                     </div>
-                    <input
-                        onChange={(e) => setDestination(e.target.value)}
-                        value={destination}
-                        list='destinations'
+                    <select
                         id="destinationInput"
-                        type="text"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
                         className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
-                        placeholder="Type here"
                         required
-                    />
-                    <datalist id='destinations'>
-                        {cities.map((city, index) => <option value={city} key={index} />)}
-                    </datalist>
+                    >
+                        <option value="">Select City</option>
+                        {cities.map((city, index) => (
+                            <option key={index} value={city}>{city}</option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* Check In */}
@@ -148,7 +149,16 @@ function Hero() {
                         <img src={assets.calenderIcon} alt="" className='h-4' />
                         <label htmlFor="checkIn">Check in</label>
                     </div>
-                    <input id="checkIn" type="date" className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
+                    <input
+                        id="checkIn"
+                        type="date"
+                        value={checkIn}
+                        onChange={(e) => {
+                            setCheckIn(e.target.value)
+                            if (checkOut && e.target.value >= checkOut) setCheckOut("")
+                        }}
+                        className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
+                    />
                 </div>
 
                 {/* Check Out */}
@@ -157,7 +167,14 @@ function Hero() {
                         <img src={assets.calenderIcon} alt="" className='h-4' />
                         <label htmlFor="checkOut">Check out</label>
                     </div>
-                    <input id="checkOut" type="date" className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
+                    <input
+                        id="checkOut"
+                        type="date"
+                        value={checkOut}
+                        onChange={(e) => setCheckOut(e.target.value)}
+                        className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
+                        min={checkIn || undefined} // ensures checkOut >= checkIn
+                    />
                 </div>
 
                 {/* Guests */}
