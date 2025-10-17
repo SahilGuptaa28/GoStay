@@ -6,8 +6,7 @@ It features **real-time availability**, **Stripe payment integration**, **Clerk 
 ---
 
 ## 🌐 Live Demo
-- **Frontend:** [https://gostay.vercel.app](https://gostay.vercel.app)  
-- **Backend API:** [https://hotel-booking-backend.vercel.app](https://hotel-booking-backend.vercel.app)
+- [Try GoStay Live](https://gostay-orcin.vercel.app)
 
 ---
 
@@ -65,23 +64,12 @@ It features **real-time availability**, **Stripe payment integration**, **Clerk 
 
 ---
 
-## 🔮 Future Enhancements
-- 🌟 User reviews and ratings  
+## 🔮 Future Enhancements  
 - 🎫 Discount coupons  
 - 🧳 Wishlist / Favorites  
 - 🌐 Multi-language support  
 - 📱 Progressive Web App (PWA)  
 - 🔔 Push notifications  
-
----
-
-## 🧑‍💻 Author
-**Sahil Gupta**  
-💼 Full-Stack (MERN) Developer | AI Enthusiast  
-📧 [Email](mailto:sahilgupta@example.com)  
-🌐 [Portfolio](https://sahilgupta.vercel.app)  
-💻 [GitHub](https://github.com/sahilgupta)  
-💬 [LinkedIn](https://linkedin.com/in/sahilgupta)
 
 ---
 
